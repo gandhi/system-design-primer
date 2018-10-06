@@ -84,7 +84,7 @@ We'll use a table `crawled_links` to store processed links and their page signat
 We could store `links_to_crawl` and `crawled_links` in a key-value **NoSQL Database**.  For the ranked links in `links_to_crawl`, we could use [Redis](https://redis.io/) with sorted sets to maintain a ranking of page links.  We should discuss the [use cases and tradeoffs between choosing SQL or NoSQL](https://github.com/donnemartin/system-design-primer#sql-or-nosql).
 
 * The **Crawler Service** processes each page link by doing the following in a loop:
-    * Takes the top ranked page link to crawl
+    * Takes the top ranked page link to crawl from `links_to_crawl`
         * Checks `crawled_links` in the **NoSQL Database** for an entry with a similar page signature
             * If we have a similar page, reduces the priority of the page link
                 * This prevents us from getting into a cycle
